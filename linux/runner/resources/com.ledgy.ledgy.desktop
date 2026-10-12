@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Ledgy
+Comment=Pencatatan keuangan pribadi offline-first
+Exec=ledgy
+Icon=com.ledgy.ledgy
+Terminal=false
+Categories=Office;Finance;
+StartupWMClass=com.ledgy.ledgy

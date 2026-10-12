@@ -1,0 +1,6 @@
+# Copy to key.properties and replace all placeholders; never commit that file.
+# Paths are relative to android/, or use an absolute path with forward slashes.
+storeFile=../release-private/ledgy-upload.jks
+keyAlias=ledgy-upload
+storePassword=REPLACE_WITH_PRIVATE_PASSWORD
+keyPassword=REPLACE_WITH_PRIVATE_PASSWORD

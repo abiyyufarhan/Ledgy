@@ -1,0 +1,58 @@
+[
+  {
+    "text": "SPBU PERTAMINA",
+    "left": 10,
+    "top": 0,
+    "right": 590,
+    "bottom": 20
+  },
+  {
+    "text": "NPWP 123456789",
+    "left": 10,
+    "top": 32,
+    "right": 590,
+    "bottom": 52
+  },
+  {
+    "text": "2026-10-08 08:00",
+    "left": 10,
+    "top": 64,
+    "right": 590,
+    "bottom": 84
+  },
+  {
+    "text": "PERTALITE 5 L",
+    "left": 10,
+    "top": 96,
+    "right": 260,
+    "bottom": 116
+  },
+  {
+    "text": "50.000",
+    "left": 400,
+    "top": 97,
+    "right": 590,
+    "bottom": 117
+  },
+  {
+    "text": "JUMLAH",
+    "left": 10,
+    "top": 128,
+    "right": 260,
+    "bottom": 148
+  },
+  {
+    "text": "50.000",
+    "left": 400,
+    "top": 129,
+    "right": 590,
+    "bottom": 149
+  },
+  {
+    "text": "DEBIT",
+    "left": 10,
+    "top": 160,
+    "right": 590,
+    "bottom": 180
+  }
+]

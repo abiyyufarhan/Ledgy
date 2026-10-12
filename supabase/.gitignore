@@ -1,0 +1,7 @@
+# Local CLI state and machine-specific client configuration
+.temp/
+.branches/
+.env
+.env.*
+!.env.example
+client-config.local.json

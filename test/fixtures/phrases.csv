@@ -1,0 +1,121 @@
+kalimat,jenis,jumlah,kategori,akun,tanggal
+makan siang 35rb pakai GoPay,expense,35000,Makanan,GoPay,2026-10-08
+minum kopi 18 ribu pakai Tunai,expense,18000,Cafe / Warkop,Tunai,2026-10-08
+beli nasi padang 25k via DANA,expense,25000,Makanan,DANA,2026-10-08
+sarapan bubur 12000 tunai,expense,12000,Makanan,Tunai,2026-10-08
+bayar warteg Rp 17.000 dari BCA,expense,17000,Makanan,BCA,2026-10-08
+ngopi 22rb via go pay,expense,22000,Cafe / Warkop,GoPay,2026-10-08
+beli kopi susu dua puluh lima ribu pakai DANA,expense,25000,Cafe / Warkop,DANA,2026-10-08
+makan malam 45 ribu dari BCA,expense,45000,Makanan,BCA,2026-10-08
+beli nasi goreng tiga puluh ribu tunai,expense,30000,Makanan,Tunai,2026-10-08
+kopi di warkop 8k pakai Tunai,expense,8000,Cafe / Warkop,Tunai,2026-10-08
+bayar bensin 50rb pakai BCA,expense,50000,Transport,BCA,2026-10-08
+parkir 5000 tunai,expense,5000,Transport,Tunai,2026-10-08
+naik ojek 18 ribu via GoPay,expense,18000,Transport,GoPay,2026-10-08
+bayar grab 35k dari DANA,expense,35000,Transport,DANA,2026-10-08
+isi bensin seratus ribu pakai BCA,expense,100000,Transport,BCA,2026-10-08
+bayar tol Rp 15.500 pakai BCA,expense,15500,Transport,BCA,2026-10-08
+tiket kereta 150rb dari BCA,expense,150000,Transport,BCA,2026-10-08
+parkir motor dua ribu tunai,expense,2000,Transport,Tunai,2026-10-08
+gojek 27000 pakai GoPay,expense,27000,Transport,GoPay,2026-10-08
+bensin lima puluh ribu,expense,50000,Transport,Tunai,2026-10-08
+bayar listrik 350rb pakai BCA,expense,350000,Tagihan,BCA,2026-10-08
+beli pulsa 25k via DANA,expense,25000,Tagihan,DANA,2026-10-08
+bayar internet 299000 dari BCA,expense,299000,Tagihan,BCA,2026-10-08
+isi token pln seratus ribu pakai GoPay,expense,100000,Tagihan,GoPay,2026-10-08
+bayar wifi 200 ribu BCA,expense,200000,Tagihan,BCA,2026-10-08
+bayar kos sejuta dari BCA,expense,1000000,Tagihan,BCA,2026-10-08
+langganan internet 250rb pakai DANA,expense,250000,Tagihan,DANA,2026-10-08
+pulsa lima belas ribu rupiah pakai GoPay,expense,15000,Tagihan,GoPay,2026-10-08
+tagihan pln 450000 BCA,expense,450000,Tagihan,BCA,2026-10-08
+token listrik setengah juta dari BCA,expense,500000,Tagihan,BCA,2026-10-08
+belanja indomaret 65000 pakai DANA,expense,65000,Belanja,DANA,2026-10-08
+beli di alfamart 27rb pakai Tunai,expense,27000,Belanja,Tunai,2026-10-08
+belanja shopee 125k via BCA,expense,125000,Belanja,BCA,2026-10-08
+belanja bulanan 1 juta 200 ribu dari BCA,expense,1200000,Belanja,BCA,2026-10-08
+indomaret tiga puluh lima ribu pakai GoPay,expense,35000,Belanja,GoPay,2026-10-08
+alfamart Rp 42.500 tunai,expense,42500,Belanja,Tunai,2026-10-08
+shopee 350rb via DANA,expense,350000,Belanja,DANA,2026-10-08
+belanja sayur 40000 Tunai,expense,40000,Belanja,Tunai,2026-10-08
+belanja buku 90k dari BCA,expense,90000,Belanja,BCA,2026-10-08
+belanja dua ratus lima puluh ribu pakai BCA,expense,250000,Belanja,BCA,2026-10-08
+nonton bioskop 50rb pakai GoPay,expense,50000,Hiburan,GoPay,2026-10-08
+langganan netflix 65k dari BCA,expense,65000,Hiburan,BCA,2026-10-08
+beli game 150000 via DANA,expense,150000,Hiburan,DANA,2026-10-08
+bayar bioskop 75 ribu tunai,expense,75000,Hiburan,Tunai,2026-10-08
+nonton 40k pakai GoPay,expense,40000,Hiburan,GoPay,2026-10-08
+beli obat 35000 Tunai,expense,35000,Kesehatan,Tunai,2026-10-08
+bayar dokter 200rb pakai BCA,expense,200000,Kesehatan,BCA,2026-10-08
+apotek lima puluh ribu pakai DANA,expense,50000,Kesehatan,DANA,2026-10-08
+obat vitamin 80k dari BCA,expense,80000,Kesehatan,BCA,2026-10-08
+bayar dokter gigi 450 ribu via GoPay,expense,450000,Kesehatan,GoPay,2026-10-08
+gaji 8jt masuk ke BCA,income,8000000,Gaji,BCA,2026-10-08
+gajian delapan juta pakai BCA,income,8000000,Gaji,BCA,2026-10-08
+bonus 500rb masuk DANA,income,500000,Gaji,DANA,2026-10-08
+terima gaji 7 juta 500 ribu ke BCA,income,7500000,Gaji,BCA,2026-10-08
+dapat bonus sejuta via BCA,income,1000000,Gaji,BCA,2026-10-08
+gaji delapan juta masuk ke b c a,income,8000000,Gaji,BCA,2026-10-08
+bonus setengah juta masuk GoPay,income,500000,Gaji,GoPay,2026-10-08
+terima refund 150000 ke DANA,income,150000,Refund,DANA,2026-10-08
+cashback 5000 masuk GoPay,income,5000,Cashback,GoPay,2026-10-08
+refund belanja 75rb masuk BCA,income,75000,Refund,BCA,2026-10-08
+transfer 200rb dari BCA ke GoPay,transfer,200000,,BCA,2026-10-08
+pindah 100k dari GoPay ke DANA,transfer,100000,,GoPay,2026-10-08
+tarik tunai 500rb dari BCA ke Tunai,transfer,500000,,BCA,2026-10-08
+setor 1 juta dari Tunai ke BCA,transfer,1000000,,Tunai,2026-10-08
+top up 50rb dari BCA ke DANA,transfer,50000,,BCA,2026-10-08
+transfer dua ratus ribu dari DANA ke GoPay,transfer,200000,,DANA,2026-10-08
+pindah sejuta dari Tunai ke BCA,transfer,1000000,,Tunai,2026-10-08
+top up seratus ribu dari BCA ke GoPay,transfer,100000,,BCA,2026-10-08
+transfer 150000 dari GoPay ke BCA,transfer,150000,,GoPay,2026-10-08
+setor setengah juta dari Tunai ke BCA,transfer,500000,,Tunai,2026-10-08
+makan siang 35rb pakai GoPay kemarin,expense,35000,Makanan,GoPay,2026-10-07
+kopi 18k Tunai kemarin lusa,expense,18000,Cafe / Warkop,Tunai,2026-10-06
+bensin 50rb BCA tadi pagi,expense,50000,Transport,BCA,2026-10-08
+bayar internet 250rb BCA minggu lalu,expense,250000,Tagihan,BCA,2026-10-01
+belanja 80k DANA tanggal 5,expense,80000,Belanja,DANA,2026-10-05
+nonton 50rb GoPay 5 oktober,expense,50000,Hiburan,GoPay,2026-10-05
+obat 30k Tunai 5/10,expense,30000,Kesehatan,Tunai,2026-10-05
+gaji 8jt BCA hari ini,income,8000000,Gaji,BCA,2026-10-08
+bayar parkir 3000 Tunai senin lalu,expense,3000,Transport,Tunai,2026-09-28
+belanja 100rb BCA hari senin,expense,100000,Belanja,BCA,2026-10-05
+makan siang tiga puluh lima ribu rupiah pakai go pay,expense,35000,Makanan,GoPay,2026-10-08
+beli nasi dua puluh lima ribu rupiah pakai b c a,expense,25000,Makanan,BCA,2026-10-08
+bayar listrik tiga ratus lima puluh ribu rupiah dari bca,expense,350000,Tagihan,BCA,2026-10-08
+beli kopi lima belas ribu rupiah pakai dana,expense,15000,Cafe / Warkop,DANA,2026-10-08
+isi bensin seratus ribu rupiah pakai tunai,expense,100000,Transport,Tunai,2026-10-08
+belanja satu juta dua ratus lima puluh ribu rupiah bca,expense,1250000,Belanja,BCA,2026-10-08
+bayar obat dua ratus sebelas ribu rupiah dana,expense,211000,Kesehatan,DANA,2026-10-08
+kopi sebelas ribu rupiah go pay,expense,11000,Cafe / Warkop,GoPay,2026-10-08
+pulsa sembilan puluh sembilan ribu rupiah dana,expense,99000,Tagihan,DANA,2026-10-08
+belanja seribu rupiah tunai,expense,1000,Belanja,Tunai,2026-10-08
+"belanja 2,5jt BCA",expense,2500000,Belanja,BCA,2026-10-08
+bayar kos 1.5 juta BCA,expense,1500000,Tagihan,BCA,2026-10-08
+"gaji 7,5 juta BCA",income,7500000,Gaji,BCA,2026-10-08
+"beli nasi 35,000 Tunai",expense,35000,Makanan,Tunai,2026-10-08
+belanja Rp35.000 BCA,expense,35000,Belanja,BCA,2026-10-08
+"belanja Rp35.000,00 BCA",expense,35000,Belanja,BCA,2026-10-08
+"bayar internet Rp299.000,00 BCA",expense,299000,Tagihan,BCA,2026-10-08
+"kopi Rp18.500,00 GoPay",expense,18500,Cafe / Warkop,GoPay,2026-10-08
+"bayar listrik 350.000,00 rupiah DANA",expense,350000,Tagihan,DANA,2026-10-08
+"obat Rp40.000,00 Tunai",expense,40000,Kesehatan,Tunai,2026-10-08
+beli roti 12000 Tunai,expense,12000,Makanan,Tunai,2026-10-08
+beli teh 8000 GoPay,expense,8000,Makanan,GoPay,2026-10-08
+jajan bakso 20000 DANA,expense,20000,Makanan,DANA,2026-10-08
+beli ayam geprek 18000 BCA,expense,18000,Makanan,BCA,2026-10-08
+beli mie ayam 15000 Tunai,expense,15000,Makanan,Tunai,2026-10-08
+ongkir 10000 GoPay,expense,10000,Transport,GoPay,2026-10-08
+tiket bus 25000 Tunai,expense,25000,Transport,Tunai,2026-10-08
+isi paket data 50000 DANA,expense,50000,Tagihan,DANA,2026-10-08
+langganan spotify 55000 BCA,expense,55000,Hiburan,BCA,2026-10-08
+beli vitamin 35000 Tunai,expense,35000,Kesehatan,Tunai,2026-10-08
+makan 2 porsi nasi 35rb pakai GoPay,expense,35000,Makanan,GoPay,2026-10-08
+beli 3 kopi 45000 via DANA,expense,45000,Cafe / Warkop,DANA,2026-10-08
+bayar bensin tanggal 5 Rp50000 BCA,expense,50000,Transport,BCA,2026-10-05
+kopi sore 15k,expense,15000,Cafe / Warkop,Tunai,2026-10-08
+makan siang tanpa catat harga,expense,,Makanan,Tunai,2026-10-08
+beli 2 porsi nasi,expense,,Makanan,Tunai,2026-10-08
+parkir tanggal 5,expense,,Transport,Tunai,2026-10-05
+ngopi pakai GoPay,expense,,Cafe / Warkop,GoPay,2026-10-08
+transfer dari BCA ke DANA,transfer,,,BCA,2026-10-08
+catatan tanpa nominal,expense,,,Tunai,2026-10-08

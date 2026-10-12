@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LaunchTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/ledgy_launch</item>
+        <item name="android:statusBarColor">@color/ledgy_background</item>
+        <item name="android:navigationBarColor">@color/ledgy_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+    <style name="NormalTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/ledgy_background</item>
+        <item name="android:statusBarColor">@color/ledgy_background</item>
+        <item name="android:navigationBarColor">@color/ledgy_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

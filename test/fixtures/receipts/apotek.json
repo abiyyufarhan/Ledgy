@@ -1,0 +1,72 @@
+[
+  {
+    "text": "APOTEK KIMIA FARMA",
+    "left": 10,
+    "top": 0,
+    "right": 590,
+    "bottom": 20
+  },
+  {
+    "text": "TELP 021 555555",
+    "left": 10,
+    "top": 32,
+    "right": 590,
+    "bottom": 52
+  },
+  {
+    "text": "08-10-26 09:10",
+    "left": 10,
+    "top": 64,
+    "right": 590,
+    "bottom": 84
+  },
+  {
+    "text": "OBAT A 1",
+    "left": 10,
+    "top": 96,
+    "right": 260,
+    "bottom": 116
+  },
+  {
+    "text": "25.000",
+    "left": 400,
+    "top": 97,
+    "right": 590,
+    "bottom": 117
+  },
+  {
+    "text": "VITAMIN 1",
+    "left": 10,
+    "top": 128,
+    "right": 260,
+    "bottom": 148
+  },
+  {
+    "text": "15.000",
+    "left": 400,
+    "top": 129,
+    "right": 590,
+    "bottom": 149
+  },
+  {
+    "text": "TAGIHAN",
+    "left": 10,
+    "top": 160,
+    "right": 260,
+    "bottom": 180
+  },
+  {
+    "text": "40.000",
+    "left": 400,
+    "top": 161,
+    "right": 590,
+    "bottom": 181
+  },
+  {
+    "text": "DANA",
+    "left": 10,
+    "top": 192,
+    "right": 590,
+    "bottom": 212
+  }
+]

@@ -1,0 +1,51 @@
+[
+  {
+    "text": "SHELL",
+    "left": 10,
+    "top": 0,
+    "right": 590,
+    "bottom": 20
+  },
+  {
+    "text": "08/10/2026 10:00",
+    "left": 10,
+    "top": 32,
+    "right": 590,
+    "bottom": 52
+  },
+  {
+    "text": "BBM",
+    "left": 10,
+    "top": 64,
+    "right": 260,
+    "bottom": 84
+  },
+  {
+    "text": "2 x 15.000 30.000",
+    "left": 400,
+    "top": 72,
+    "right": 590,
+    "bottom": 92
+  },
+  {
+    "text": "NETTO",
+    "left": 10,
+    "top": 96,
+    "right": 590,
+    "bottom": 116
+  },
+  {
+    "text": "Rp30.000",
+    "left": 10,
+    "top": 128,
+    "right": 590,
+    "bottom": 148
+  },
+  {
+    "text": "CASH",
+    "left": 10,
+    "top": 160,
+    "right": 590,
+    "bottom": 180
+  }
+]

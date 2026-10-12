@@ -1,0 +1,149 @@
+[
+  {
+    "text": "ALFAMART",
+    "left": 10,
+    "top": 0,
+    "right": 590,
+    "bottom": 20
+  },
+  {
+    "text": "08/10/2026 19:25",
+    "left": 10,
+    "top": 32,
+    "right": 590,
+    "bottom": 52
+  },
+  {
+    "text": "ROTI 1",
+    "left": 10,
+    "top": 64,
+    "right": 260,
+    "bottom": 84
+  },
+  {
+    "text": "10.000",
+    "left": 400,
+    "top": 65,
+    "right": 590,
+    "bottom": 85
+  },
+  {
+    "text": "SUSU 1",
+    "left": 10,
+    "top": 96,
+    "right": 260,
+    "bottom": 116
+  },
+  {
+    "text": "20.000",
+    "left": 400,
+    "top": 97,
+    "right": 590,
+    "bottom": 117
+  },
+  {
+    "text": "TELUR 1",
+    "left": 10,
+    "top": 128,
+    "right": 260,
+    "bottom": 148
+  },
+  {
+    "text": "30.000",
+    "left": 400,
+    "top": 129,
+    "right": 590,
+    "bottom": 149
+  },
+  {
+    "text": "SABUN 1",
+    "left": 10,
+    "top": 160,
+    "right": 260,
+    "bottom": 180
+  },
+  {
+    "text": "12.000",
+    "left": 400,
+    "top": 161,
+    "right": 590,
+    "bottom": 181
+  },
+  {
+    "text": "MINYAK 1",
+    "left": 10,
+    "top": 192,
+    "right": 260,
+    "bottom": 212
+  },
+  {
+    "text": "18.000",
+    "left": 400,
+    "top": 193,
+    "right": 590,
+    "bottom": 213
+  },
+  {
+    "text": "BERAS 1",
+    "left": 10,
+    "top": 224,
+    "right": 260,
+    "bottom": 244
+  },
+  {
+    "text": "40.000",
+    "left": 400,
+    "top": 225,
+    "right": 590,
+    "bottom": 245
+  },
+  {
+    "text": "SUBTOTAL",
+    "left": 10,
+    "top": 256,
+    "right": 260,
+    "bottom": 276
+  },
+  {
+    "text": "130.000",
+    "left": 400,
+    "top": 257,
+    "right": 590,
+    "bottom": 277
+  },
+  {
+    "text": "DISKON",
+    "left": 10,
+    "top": 288,
+    "right": 260,
+    "bottom": 308
+  },
+  {
+    "text": "10.000",
+    "left": 400,
+    "top": 289,
+    "right": 590,
+    "bottom": 309
+  },
+  {
+    "text": "TOTAL BAYAR",
+    "left": 10,
+    "top": 320,
+    "right": 260,
+    "bottom": 340
+  },
+  {
+    "text": "120.000",
+    "left": 400,
+    "top": 321,
+    "right": 590,
+    "bottom": 341
+  },
+  {
+    "text": "GOPAY",
+    "left": 10,
+    "top": 352,
+    "right": 590,
+    "bottom": 372
+  }
+]
