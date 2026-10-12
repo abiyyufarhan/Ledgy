@@ -1,449 +1,568 @@
-# Ledgy
+<a id="top"></a>
 
-Pencatatan keuangan pribadi **offline-first** untuk Android, Windows, dan Linux,
-dengan login Supabase opsional untuk sinkronisasi. Uang disimpan sebagai rupiah
-bulat, waktu UTC, dan transfer tidak dihitung sebagai pemasukan/pengeluaran.
+<p align="center">
+  <img src="docs/media/ledgy-banner.png" alt="Ledgy 2.0 — Catat. Pahami. Kendalikan." width="1000">
+</p>
 
-## Menjalankan aplikasi
+<h1 align="center">Ledgy</h1>
 
-Gunakan Flutter **3.47.5 / Dart 3.13.4** (versi yang dipin di CI). Semua perintah
-di README dijalankan dari folder `ledgy` yang memuat `pubspec.yaml`.
-Pada Windows, gunakan SDK tanpa spasi dan perbaiki PATH agar SDK lama tidak terpilih:
+<p align="center">
+  Pencatatan keuangan pribadi dengan antarmuka glass, input cepat, dan sinkronisasi opsional.<br>
+  <strong>Mulai secara lokal. Tinjau setiap transaksi. Pahami arus kasmu.</strong>
+</p>
 
-```powershell
-Set-Location -LiteralPath 'D:\7. PROYEK\6. LEDGY\ledgy'
-$env:Path = 'D:\flutter-sdk\bin;' + $env:Path
+<p align="center">
+  <a href="#galeri">Lihat tampilan</a> ·
+  <a href="#mulai">Jalankan aplikasi</a> ·
+  <a href="#input-cepat">Coba input cepat</a> ·
+  <a href="#dokumentasi">Panduan lengkap</a>
+</p>
+
+<p align="center">
+  <strong>2.0.0+5</strong> · Flutter <strong>3.47.5</strong> · Dart <strong>3.13.4</strong><br>
+  Android & Windows · target desktop Linux tersedia di source
+</p>
+
+---
+
+<details>
+<summary><strong>Jelajahi dokumentasi</strong> — klik untuk membuka daftar isi</summary>
+
+- [Fitur utama](#fitur)
+- [Galeri aplikasi](#galeri)
+- [Mulai dari source](#mulai)
+- [Input cepat dan pemindaian struk](#input-cepat)
+- [Cara kerja dan arsitektur](#arsitektur)
+- [Cloud dan migrasi dari versi lama](#cloud)
+- [Build dan instalasi](#build)
+- [Keamanan dan privasi](#keamanan)
+- [Pengujian dan CI](#pengujian)
+- [Pertanyaan umum](#faq)
+- [Dokumentasi lanjutan dan kontribusi](#dokumentasi)
+
+</details>
+
+<a id="fitur"></a>
+
+## Fitur utama
+
+| Fitur | Yang bisa dilakukan |
+| --- | --- |
+| **Dashboard** | Saldo seluruh aset, pemasukan/pengeluaran, rasio tabungan, arus kas, dan transaksi terakhir. |
+| **Transaksi** | Pemasukan, pengeluaran, transfer; kategori dan subkategori; tanggal/jam; catatan multibaris. |
+| **Input cepat** | Ketik kalimat berbahasa Indonesia, lalu periksa dan lengkapi draf sebelum menyimpan. |
+| **Kategori otomatis** | Misalnya `minum kopi` → **Makan & Minum • Cafe / Warkop**. Koreksi pengguna dapat dipelajari secara lokal. |
+| **Suara** | Input `id_ID` melalui layanan ucapan perangkat, dengan izin mikrofon dan pemeriksaan bahasa. |
+| **Struk Android** | Kamera/galeri → OCR Latin di perangkat → item, tanggal, toko, dan total untuk ditinjau. |
+| **Anggaran & jadwal** | Batas pengeluaran bulanan, progres kategori, dan transaksi berulang harian/mingguan/bulanan. |
+| **Aset & target** | Kelola akun/aset dan saldo awal; buat target tabungan di Dashboard. |
+| **Laporan** | Unduh transaksi terfilter sebagai Excel/PDF; ekspor/impor CSV dengan pratinjau. |
+| **Sinkronisasi** | Antrean perubahan lokal, retry ketika online, dan sinkron manual melalui akun Supabase. |
+| **Kunci aplikasi** | Password 8–128 karakter dan biometrik ketika perangkat mendukung. |
+
+Grafik arus kas menyediakan **Keseluruhan, Mingguan, Bulanan, dan Tahunan**. Periode tanpa transaksi menjadi celah; satu titik data tidak dibuatkan garis ke nol. Transfer tidak menambah total pemasukan/pengeluaran.
+
+<a id="galeri"></a>
+
+## Galeri aplikasi
+
+Klik gambar untuk membukanya dalam ukuran penuh. Seluruh tampilan memakai **data demo dari pengujian UI**, bukan database keuangan pengguna. Susunan menyesuaikan ukuran layar dan platform.
+
+### Dashboard desktop
+
+[![Dashboard Ledgy: saldo aset, arus kas, anggaran, transaksi terakhir, dan target tabungan](docs/media/dashboard-desktop.png)](docs/media/dashboard-desktop.png)
+
+### Tampilan mobile dan formulir
+
+<table>
+  <tr>
+    <th>Dashboard mobile</th>
+    <th>Transaksi manual</th>
+    <th>Konfirmasi input cepat</th>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><a href="docs/media/dashboard-mobile.png"><img src="docs/media/dashboard-mobile.png" alt="Dashboard mobile Ledgy" width="240"></a></td>
+    <td align="center" valign="top"><a href="docs/media/transaction-form.png"><img src="docs/media/transaction-form.png" alt="Form Transaksi Baru dengan jumlah, akun, kategori, tanggal dan catatan" width="240"></a></td>
+    <td align="center" valign="top"><a href="docs/media/quick-input-confirmation.png"><img src="docs/media/quick-input-confirmation.png" alt="Konfirmasi draf transfer dengan nama dan rekening penerima" width="240"></a></td>
+  </tr>
+</table>
+
+<details>
+<summary><strong>Lihat filter transaksi</strong></summary>
+
+Pilih tipe, kategori/subkategori, dan akun. **Terapkan** mengubah daftar; menutup dialog tanpa menerapkan mempertahankan filter sebelumnya.
+
+[![Dialog filter transaksi](docs/media/transaction-filter.png)](docs/media/transaction-filter.png)
+
+</details>
+
+<details>
+<summary><strong>Lihat pengaturan dan keamanan</strong></summary>
+
+Status sinkron, pengaturan akun, password, dan dukungan biometrik berada dalam baris pengaturan yang ringkas. Tombol biometrik tidak dapat diaktifkan ketika pemeriksaan perangkat tidak menemukan dukungan.
+
+[![Pengaturan akun, sinkronisasi, password dan biometrik](docs/media/settings-security.png)](docs/media/settings-security.png)
+
+</details>
+
+<details>
+<summary><strong>Lihat navigasi anggaran dan transaksi berulang</strong></summary>
+
+Menu **Anggaran** memisahkan anggaran bulanan dan jadwal berulang. Jadwal diproses saat aplikasi dibuka atau aktif kembali; pekerjaan latar belakang Android mengikuti kebijakan sistem.
+
+[![Halaman jadwal berulang dengan submenu Anggaran](docs/media/budget-recurring.png)](docs/media/budget-recurring.png)
+
+</details>
+
+[Kembali ke atas ↑](#top)
+
+<a id="mulai"></a>
+
+## Mulai dari source
+
+Gunakan versi SDK yang dipin dalam [CI](.github/workflows/ci.yml): **Flutter 3.47.5 / Dart 3.13.4**. Semua perintah dijalankan dari root proyek yang memiliki `pubspec.yaml`; clone repositori ini menghasilkan folder `Ledgy`.
+
+```bash
+git clone https://github.com/abiyyufarhan/Ledgy.git
+cd Ledgy
 flutter doctor -v
 flutter pub get --enforce-lockfile
-flutter analyze --no-pub
-flutter test --no-pub
+```
+
+Repositori private memerlukan akses GitHub. Jika source sudah ada di komputer, langsung buka folder proyek tersebut.
+
+<details open>
+<summary><strong>Windows — jalankan mode lokal</strong></summary>
+
+Siapkan Visual Studio dengan workload **Desktop development with C++**, Windows SDK, dan CMake. Gunakan lokasi Flutter SDK tanpa spasi.
+
+```powershell
 flutter run -d windows
 ```
 
-Mode lokal berjalan tanpa konfigurasi cloud. Untuk Android, aktifkan Developer
-Options/USB debugging, sambungkan perangkat, lalu `flutter devices` dan
-`flutter run -d ID_PERANGKAT`. Windows membutuhkan Visual Studio dengan workload
-**Desktop development with C++**, Windows SDK dan CMake; Android membutuhkan
-Android SDK, JDK, serta lisensi SDK yang telah diterima.
+Mode lokal dapat dipakai tanpa akun atau konfigurasi cloud. Tutorial khusus Ledgy 2.0: [Menjalankan aplikasi](docs/MENJALANKAN_2_0.md).
 
-### Sidebar desktop
+</details>
 
-Pada jendela selebar minimal 700 px, sidebar dimulai dengan ikon saja (64 px).
-Arahkan kursor ke sidebar untuk membuka label (232 px); kursor keluar menutupnya
-kembali setelah jeda pendek. Klik logo/header Ledgy untuk menyematkan atau
-melepas sidebar. Keyboard Tab membuka label, dan Escape menutup/melepas sematan.
-Pada layar ponsel, navigasi utama ditampilkan di bagian bawah.
+<details>
+<summary><strong>Android — jalankan melalui kabel USB</strong></summary>
 
-Sidebar menampilkan logo/versi, profil pengguna dan badge profil penabung, lalu
-Dashboard, Transaksi, Anggaran, Aset, dan Setting. Tombol tambah di bagian
-bawah melebar menjadi `+ Transaksi` saat hover atau fokus keyboard. Menu profil
-dipindahkan dari kanan atas ke sidebar; pada ponsel, akses profil berada di kiri
-header halaman.
+Siapkan Android SDK/JDK. Aktifkan **Developer options → USB debugging**, sambungkan ponsel, lalu setujui permintaan debugging pada ponsel.
 
-Klik kartu atau ikon profil untuk membuka **Detail Akun**. Halaman ini menampilkan
-avatar, nama, email, pilihan **Profil Penabung**, dan **Keluar dari aplikasi**.
-Nama dan profil penabung diperbarui melalui Supabase Auth; perubahan email
-memerlukan konfirmasi email. **Reset Data** mempertahankan akun serta mengantrekan
-penghapusan ledger untuk sinkronisasi. **Hapus Akun** meminta ketikan `HAPUS`,
-menghapus akun cloud terlebih dahulu, lalu membersihkan data lokal. Terapkan
-[migrasi penghapusan akun](supabase/migrations/20261007010000_account_profile.sql)
-agar tombol Hapus Akun dapat digunakan; tidak ada penghapusan saat membuka halaman.
+```powershell
+flutter doctor --android-licenses
+flutter devices
+flutter run -d ID_PERANGKAT
+```
 
-Dashboard menampilkan saldo seluruh aset, arus kas dan rasio tabungan per bulan,
-grafik Keseluruhan/Mingguan/Bulanan/Tahunan, progres anggaran, serta transaksi terakhir. Pilihan
-bulan berlaku pada ringkasan dan tautan ke transaksi/anggaran. Keseluruhan mencakup
-tanggal transaksi aktif pertama hingga terakhir, tanpa mengikuti bulan pilihan.
-Mingguan mengikuti bulan pilihan, Bulanan mengikuti tahun pilihan, dan Tahunan
-merangkum riwayat hingga tahun pilihan. Periode tanpa transaksi menjadi celah;
-data tunggal ditampilkan sebagai titik tanpa garis ke nol. Pencarian mencakup
-catatan, kategori, aset, dan nominal transaksi di seluruh periode. Alamat lama
-`/analysis` dan `/reports` diarahkan ke Dashboard.
+Ganti `ID_PERANGKAT` dengan ID dari `flutter devices`. Perintah ini memasang build debug; proses signing rilis dijelaskan di [Build dan instalasi](#build).
 
-Panel utama Dashboard menggunakan ukuran yang seragam dalam grid responsif dan
-permukaan glass Ledgy. Isi anggaran, transaksi, target tabungan, dan aset memakai
-scrollbar masing-masing ketika melebihi ruang panel; penambahan data tidak
-memperbesar panel. Kartu ringkasan juga memiliki ukuran seragam dalam kelompoknya.
+</details>
 
-Target tabungan dapat dibuat, diubah, dan dihapus dari Dashboard. Jumlah terkumpul
-diperbarui secara manual tanpa mengubah saldo aset. Target disimpan secara lokal
-di perangkat dan belum termasuk sinkronisasi cloud.
+<details>
+<summary><strong>Linux — jalankan pada mesin Linux</strong></summary>
 
-Saat mendaftar akun, pilih Konservatif/Pasif, Moderat/Terencana, Agresif/Frugal,
-Oportunistik/Situasional, atau Penabung Impulsif. Pilihan disimpan sebagai kode
-`saver_profile` pada metadata Supabase Auth, dan dibaca saat login di perangkat
-lain; fitur ini tidak memerlukan migrasi SQL baru. Akun lama tanpa metadata
-menampilkan `Profil belum dipilih` dan dapat memilih melalui Detail Akun atau Setting. Pembaruan
-profil memerlukan internet; jika gagal, pilihan terakhir tersimpan tetap dipakai.
+Contoh dependency desktop Ubuntu 24.04:
 
-Transisi 240 ms memakai satu pengendali animasi dan ikon dengan posisi tetap.
-Saat hover, sidebar melapisi konten tanpa mengubah layout grafik setiap frame;
-saat disematkan, konten mendapatkan ruang tersendiri. Tidak ada BackdropFilter
-tambahan. Preferensi sistem mengurangi animasi juga dihormati.
+```bash
+sudo apt-get update
+sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+flutter pub get --enforce-lockfile
+flutter run -d linux
+```
 
-### Halaman Transaksi
+Build Linux dilakukan pada Linux. Pengujian perangkat nyata dan job CI tetap perlu diperiksa; keberadaan target source bukan bukti bahwa semua perangkat sudah diuji.
 
-Form Transaksi Baru memiliki kolom berukuran seragam, tanggal/jam format 24 jam,
-dan Catatan beberapa baris. Pada Masuk, pilihan aset berlabel Menuju Akun dan
-kategori pemasukan terdiri dari Acara Sosial, Pemasukan, Pencairan Pinjaman,
-Tabungan, dan Lainnya beserta subkategorinya. Pada Transfer, isi Nama Penerima
-dan Rekening Penerima; nomor disimpan sebagai teks agar nol awal tetap utuh.
-Transfer ini mengurangi saldo akun asal dan tidak menambahkan aset penerima.
-Riwayat transfer antar-aset sebelumnya tetap dapat dibaca. Detail penerima
-tersedia di riwayat, laporan Excel/PDF, dan ekspor/impor CSV.
+</details>
 
-Halaman dibuka pada bulan berjalan. Ikon kalender membuka tiga pilihan periode:
-Harian, Bulanan, dan Tahunan. Ringkasan pemasukan dan pengeluaran mengikuti periode
-serta filter aktif; transfer tetap terlihat pada pilihan Semua, tetapi tidak
-menambah kedua total. Panah kiri/kanan berpindah hari, bulan, atau tahun sesuai
-pilihan periode. Riwayat periode sebelumnya tetap tersimpan dan bisa dilihat kembali.
+<a id="input-cepat"></a>
 
-Ikon corong membuka dialog glass dengan tipe Pemasukan/Pengeluaran, kategori dan
-subkategori (termasuk kategori pribadi), serta akun pengguna. Pilih kategori induk
-untuk mencakup semua subkategorinya. Reset mengosongkan pilihan di dialog; tekan
-Terapkan untuk mengubah daftar. Menutup dialog tanpa menerapkan tidak mengubah
-filter aktif. Tidak ada lagi kolom pencarian atau baris filter lama.
+## Input cepat dan pemindaian struk
 
-Kolom Tipe Transaksi, Semua Kategori, dan Semua Akun ditampilkan tanpa ikon di sebelah kiri.
-Ikon unduh membuka dropdown berjudul Download Laporan, dengan pilihan Excel (.xlsx)
-di atas PDF (.pdf), garis pemisah putih, dan sudut membulat. Laporan berisi ringkasan
-dan transaksi yang sedang ditampilkan sesuai periode serta filter aktif. Nominal
-pada Excel berupa angka agar bisa dihitung, dan catatan tetap berupa teks.
-Ekspor seluruh data dan impor CSV dengan pratinjau tetap tersedia melalui tab Anggaran.
+Di **Dashboard**, ketik pada kolom **Ketik transaksi**. Tekan **Enter** atau tombol panah untuk meninjau draf. Di desktop, **Ctrl+K** memfokuskan kolom tersebut.
 
-## Menyiapkan Supabase
+| Contoh kalimat | Hasil yang diharapkan |
+| --- | --- |
+| `minum kopi 35rb pakai Tunai` | Pengeluaran Rp35.000; kategori **Cafe / Warkop**; akun Tunai. |
+| `gaji delapan juta masuk ke b c a` | Pemasukan Rp8.000.000; kategori Gaji; akun BCA. |
+| `bensin lima puluh ribu` | Pengeluaran Rp50.000; kategori transportasi; akun bawaan diberi peringatan. |
+| `kopi 20rb via GoPay; bensin 50rb via Tunai` | Dua draf, masing-masing diperiksa dan disimpan satu per satu. |
 
-1. Buat proyek Supabase dan simpan password database di pengelola password.
-2. Terapkan **kedua** migrasi, berurutan: `20261001000000_create_ledgy_backend.sql`
-   lalu `20261002000000_sync_window.sql`. Migrasi kedua menyediakan RPC sinkronisasi;
-   tanpa ini login bisa berhasil tetapi sinkronisasi gagal.
-3. Aktifkan provider Email dan konfirmasi email. Untuk penerima umum, atur Custom
-   SMTP. Redirect URLs Android: `com.ledgy.ledgy://auth/callback`. Site URL harus
-   halaman web yang benar-benar tersedia, bukan `localhost:3000` untuk pengguna
-   rilis. Desktop saat ini melakukan konfirmasi email lalu login manual.
-4. Salin konfigurasi contoh dan isi **Project URL + anon/publishable key publik**:
+Contoh mengasumsikan akun dan kategori yang cocok tersedia. Memori koreksi pribadi diprioritaskan, sehingga hasil kategori dapat mengikuti pilihan pengguna sebelumnya.
+
+```mermaid
+flowchart LR
+    A[Kalimat atau suara] --> B[ParserPipeline lokal]
+    B --> C[Draf transaksi]
+    C --> D[Tinjau dan edit]
+    D --> E{Isian valid?}
+    E -- Belum --> D
+    E -- Ya --> F[Simpan melalui repository]
+    D --> G[Buang draf]
+```
+
+Jumlah, akun, kategori, tanggal, dan catatan dapat diperbaiki. **Simpan** nonaktif selama validasi belum selesai. **Detail input** memuat teks asli, confidence, warning, dan teks OCR untuk struk. Transfer eksternal membutuhkan nama serta rekening penerima; transfer antar-akun sendiri tetap memakai akun tujuan.
+
+<details>
+<summary><strong>Putar ilustrasi alur input cepat</strong></summary>
+
+Animasi berikut berasal dari trailer Ledgy dan menggambarkan kalimat yang menjadi formulir konfirmasi. Ini ilustrasi dengan data demo, bukan rekaman penggunaan langsung.
+
+<p align="center">
+  <img src="docs/media/quick-input-demo.gif" alt="Animasi pengetikan kalimat transfer dan kemunculan formulir konfirmasi Ledgy" width="360">
+</p>
+
+</details>
+
+<details>
+<summary><strong>Struk Android: kamera → OCR → konfirmasi</strong></summary>
+
+1. Tekan kamera pada input cepat, lalu pilih **Kamera** atau **Galeri**.
+2. Letakkan struk rata dan terang; periksa pratinjau, lalu tekan **Baca struk**.
+3. Periksa total, tanggal, akun, kategori, dan daftar item.
+4. Buka **Detail input → Lihat teks OCR** jika ada pembacaan yang perlu diperiksa.
+5. Lengkapi isian dan simpan.
+
+OCR Latin memakai **ML Kit di perangkat**. Foto tidak dikirim ke server oleh alur pemindaian. Foto sementara dibersihkan setelah selesai; **Simpan foto struk sebagai lampiran** bawaan mati, dan lampiran yang diaktifkan hanya disimpan lokal.
+
+[Panduan pemindaian dan fixture OCR](docs/QUICK_INPUT_STEP5.md).
+
+</details>
+
+### Dukungan menurut platform
+
+| Kemampuan | Android | Windows | Linux |
+| --- | --- | --- | --- |
+| Transaksi lokal dan parser teks | Tersedia | Tersedia | Target source tersedia |
+| Suara bahasa Indonesia | Membutuhkan izin dan locale `id_ID` | Layanan saat ini belum menyediakan `id_ID`; gunakan ketik | Mikrofon disembunyikan |
+| Pemindaian struk | Kamera/galeri + OCR | Tidak tersedia | Tidak tersedia |
+| Password aplikasi | Tersedia | Tersedia | Tersedia pada implementasi lokal |
+| Biometrik | Jika sensor dan biometrik sudah disiapkan | Pemeriksaan sensor dan Windows Hello | Tidak didukung |
+
+Layanan suara meminta mode **on-device** jika perangkat mendukung; penggunaan jaringan oleh recognizer bergantung pada layanan sistem. Ledgy tidak menyimpan file audio atau transkrip sebagai log suara. Catatan transaksi yang disimpan tetap dapat berisi teks hasil input.
+
+[Kembali ke atas ↑](#top)
+
+<a id="arsitektur"></a>
+
+## Cara kerja dan arsitektur
+
+Ledgy menggunakan **Flutter + Riverpod** untuk antarmuka dan state, **GoRouter** untuk navigasi, serta **Drift/SQLite** untuk ledger lokal. Nominal disimpan sebagai **integer rupiah** dan waktu transaksi sebagai **UTC**, lalu ditampilkan mengikuti zona waktu perangkat.
+
+```mermaid
+flowchart TD
+    UI[UI Flutter / Riverpod] --> Actions[Actions dan repository]
+    Text[Teks / suara] --> Pipeline[ParserPipeline / aturan Dart]
+    Photo[Foto struk Android] --> OCR[ML Kit lokal]
+    OCR --> Receipt[ReceiptParser]
+    Pipeline --> Draft[TransactionDraft / validator]
+    Receipt --> Draft
+    Draft --> Confirm[Form konfirmasi]
+    Confirm --> Actions
+    Actions --> DB[(Drift / SQLite)]
+    DB --> Queue[Antrean perubahan]
+    Queue <-->|Saat login dan online| Cloud[Supabase Auth / PostgreSQL / RLS]
+```
+
+```text
+lib/
+├── app/                       # bootstrap aplikasi dan router
+├── core/                      # tema, glass widgets, database, provider, privasi
+└── features/
+    ├── accounts/              # akun/aset
+    ├── auth/                  # login dan profil
+    ├── dashboard/             # ringkasan, grafik, target tabungan
+    ├── categories/            # kategori dan subkategori
+    ├── transactions/          # ledger, filter, formulir
+    ├── local/                 # anggaran, notifikasi, otomasi lokal
+    ├── recurring/             # jadwal transaksi berulang
+    ├── quick_input/           # draf, parser, suara, struk, lab
+    ├── reports/               # laporan Excel/PDF
+    ├── transfer/              # ekspor/impor CSV
+    ├── security/              # password dan pemeriksaan biometrik
+    └── sync/                  # antrean lokal dan sinkron Supabase
+```
+
+<details>
+<summary><strong>Titik masuk penting untuk pengembang</strong></summary>
+
+| Area | Source |
+| --- | --- |
+| Database dan migrasi lokal | [app_database.dart](lib/core/database/app_database.dart) |
+| Model draf | [transaction_draft.dart](lib/features/quick_input/domain/transaction_draft.dart) |
+| Validator | [draft_validator.dart](lib/features/quick_input/domain/draft_validator.dart) |
+| Pipeline parser | [parser_pipeline.dart](lib/features/quick_input/domain/parser/parser_pipeline.dart) |
+| Pemilih kategori input cepat | [quick_input_categories.dart](lib/features/quick_input/data/quick_input_categories.dart) |
+| Form konfirmasi | [draft_confirmation_sheet.dart](lib/features/quick_input/presentation/draft_confirmation_sheet.dart) |
+| Parser struk | [receipt_parser.dart](lib/features/quick_input/domain/receipt/receipt_parser.dart) |
+| Sinkronisasi | [sync_service.dart](lib/features/sync/domain/sync_service.dart) |
+| Konfigurasi klien cloud | [cloud_connection.dart](lib/features/auth/data/cloud_connection.dart) |
+
+`ParserPipeline` menyediakan titik sambung fallback, tetapi `aiFallbackEnabled` bawaan **false** dan tidak ada implementasi LLM/jaringan dalam pipeline aktif. Semua draf disimpan melalui jalur repository transaksi yang sama dengan input manual.
+
+</details>
+
+<a id="cloud"></a>
+
+## Cloud dan migrasi dari versi lama
+
+Cloud bersifat opsional. Tanpa konfigurasi, ledger lokal tetap berjalan dan login cloud dinonaktifkan. Konfigurasi dibaca **saat build**; perubahan konfigurasi memerlukan run/build ulang.
+
+<details>
+<summary><strong>Aktifkan login dan sinkronisasi</strong></summary>
+
+1. Siapkan proyek Supabase dan aktifkan Auth Email/password; atur konfirmasi email/SMTP sesuai penggunaan.
+2. Untuk backend baru, terapkan migrasi dalam urutan berikut. Pada backend yang sudah digunakan, periksa riwayat dan terapkan hanya yang belum ada:
+
+| Urutan | Migrasi | Fungsi |
+| --- | --- | --- |
+| 1 | [create_ledgy_backend.sql](supabase/migrations/20261001000000_create_ledgy_backend.sql) | Tabel ledger, RLS, dan timestamp server. |
+| 2 | [sync_window.sql](supabase/migrations/20261002000000_sync_window.sql) | RPC sinkronisasi. |
+| 3 | [transfer_recipients.sql](supabase/migrations/20261007000000_transfer_recipients.sql) | Nama dan rekening penerima transfer. |
+| 4 | [account_profile.sql](supabase/migrations/20261007010000_account_profile.sql) | Penghapusan akun milik pengguna yang terautentikasi. |
+
+3. Tambahkan redirect Android **`com.ledgy.ledgy2://auth/callback`** di Supabase Auth. Untuk konfirmasi email rilis, gunakan Site URL yang dapat diakses pengguna.
+4. Buat file konfigurasi lokal jika belum ada:
 
 ```powershell
 Copy-Item supabase/client-config.example.json supabase/client-config.local.json
-# Edit client-config.local.json dengan editor Anda.
+```
+
+Isi Project URL dan **public anon/publishable key**. Field `SUPABASE_ANON_KEY` menerima kedua jenis key publik tersebut. Jangan menyalin ulang contoh di atas file konfigurasi yang sudah terisi.
+
+```powershell
 flutter run -d windows --dart-define-from-file=supabase/client-config.local.json
 ```
 
-Konfigurasi ini dibaca **saat build**, bukan saat aplikasi berjalan. APK/EXE harus
-dibangun ulang setelah konfigurasi berubah. Jangan masukkan `service_role`,
-`sb_secret_...`, access token CLI, atau password database ke aplikasi maupun CI
-client variables. Key publik memang berada dalam binary; keamanan data bergantung
-pada Auth dan RLS. Jangan menonaktifkan RLS untuk mengatasi masalah sinkronisasi.
+File lokal dikecualikan Git. **Jangan memakai `service_role`, secret key backend, token CLI, atau password database di aplikasi.** Key publik berada di binary; pemisahan data pengguna bergantung pada Auth dan RLS.
 
-Alternatif CLI (setelah CLI tersedia):
+[Backend/Auth](supabase/README.md) · [Sinkronisasi](supabase/SYNC.md)
 
-```powershell
-supabase init # hanya jika config.toml belum ada
-supabase login
-supabase link --project-ref PROJECT_REF_ANDA
-supabase db push --dry-run
-supabase db push
-supabase migration list
-```
+</details>
 
-Jangan menjalankan ulang SQL di proyek yang sudah memiliki tabel tanpa memeriksa
-riwayat migrasi. Panduan lengkap: [backend/Auth](supabase/README.md) dan
-[sinkronisasi/callback](supabase/SYNC.md). Verifikasi sinkronisasi dua perangkat
-dengan akun yang sama sebelum menyebarkan rilis; build sukses tidak membuktikan
-bahwa migrasi remote telah diterapkan.
+<details>
+<summary><strong>Memakai Ledgy 2.0 bersama akun Ledgy 1.0</strong></summary>
 
-## Ikon dan splash
+Ledgy 2.0 memakai identitas Android **`com.ledgy.ledgy2`**, executable desktop **`ledgy_2_0`**, database lokal **`ledgy_2_0`**, dan namespace sesi autentikasi terpisah. Source, aplikasi, serta database lokal versi lama dapat tetap terpisah.
 
-Logo dompet Ledgy berupa vektor biru/cyan dengan latar navy, tanpa dependency baru.
-Android memakai adaptive icon, monochrome icon Android 13+, splash native sebelum
-frame pertama, dan splash Flutter selama inisialisasi. Desktop memakai ikon
-Windows multi-resolusi/Linux PNG serta splash Flutter yang sama. Tidak ada
-penundaan splash buatan atau data keuangan pada splash.
+**Backend dan akun cloud yang sama tetap berbagi data:** perubahan dan penghapusan yang disinkronkan dapat terlihat pada kedua versi. Pemisahan instalasi lokal tidak membuat salinan backend.
 
-Source: `lib/core/branding/ledgy_mark.dart` dan vector drawable Android. Aset PNG
-dan ICO sudah tersedia di repo; regenerasi setelah mengubah desain:
+[Panduan migrasi konfigurasi dan akun lama](docs/MIGRASI_KONFIGURASI_1_0.md).
+
+</details>
+
+<a id="build"></a>
+
+## Build dan instalasi
+
+<details>
+<summary><strong>Windows — EXE dan installer</strong></summary>
+
+Tutup Ledgy sebelum build agar linker tidak mengunci executable.
 
 ```powershell
-flutter test tool/generate_brand_assets.dart
+flutter build windows --release --no-tree-shake-icons --dart-define-from-file=supabase/client-config.local.json
+node tool/verify_windows_icons.mjs
+./tool/package_installer.ps1
 ```
 
-Vector drawable Android harus ikut disesuaikan jika bentuk logo diubah.
-`assets/branding/ledgy-icon-1024.png` adalah master raster, bukan dependency
-runtime. `assets/branding/ledgy-play-store-512.png` adalah versi 512 px berlatar penuh untuk
-[persyaratan Google Play](https://developer.android.com/distribute/google-play/resources/icon-design-specifications).
+Untuk build lokal tanpa cloud, hapus argumen `--dart-define-from-file`. Bundle berada di `build/windows/x64/runner/Release/`; executable adalah **`ledgy_2_0.exe`**. Distribusi portable membutuhkan seluruh bundle, termasuk DLL dan folder `data`, bukan EXE saja.
 
-## Signing dan build rilis Android
-
-Keystore lokal dibuat oleh `tool/create_keystore.ps1` dengan RSA 4096, alias
-`ledgy-upload`, password acak, dan masa berlaku 10.000 hari. Generator tidak
-menimpa key yang sudah ada dan tidak mencetak password. Jika belum memiliki key:
+Installer dihasilkan ke `build/releases/`. Skrip packaging memerlukan Inno Setup dan runtime yang sesuai; lihat [panduan installer Windows](docs/WINDOWS_INSTALLER.md). Installer belum ditandatangani Authenticode, sehingga Windows dapat menampilkan penerbit tidak dikenal.
 
 ```powershell
-# Ambil lokasi JDK/keytool dari flutter doctor -v, lalu sesuaikan path ini.
-./tool/create_keystore.ps1 -Keytool 'D:\1. APLIKASI\Andrid SDK\jbr\bin\keytool.exe'
+./tool/package_windows.ps1
+./tool/release_checksums.ps1
 ```
 
-Simpan `release-private/ledgy-upload.jks` **dan** `android/key.properties` pada
-backup terenkripsi terpisah; password terdapat di file properties, jangan tampilkan
-di terminal, screenshot, atau chat. Jangan membuat key baru untuk setiap build.
-Keduanya diabaikan Git. Konfigurasi contoh: `android/key.properties.example`.
-Gradle menolak build rilis jika signing tidak lengkap; tidak ada fallback key debug.
+</details>
+
+<details>
+<summary><strong>Android — APK, AAB, dan pemasangan melalui USB</strong></summary>
+
+Build rilis membutuhkan `android/key.properties` dan keystore lokal yang valid. Contoh tersedia di [key.properties.example](android/key.properties.example). Simpan key dan password signing melalui backup privat; jangan membuat key baru untuk setiap pembaruan.
 
 ```powershell
 flutter build apk --release --dart-define-from-file=supabase/client-config.local.json
 flutter build appbundle --release --dart-define-from-file=supabase/client-config.local.json
-```
-
-Untuk distribusi lokal tanpa login, hapus argumen `--dart-define-from-file`.
-Hasilnya:
-
-- APK untuk install langsung: `build/app/outputs/flutter-apk/app-release.apk`.
-- AAB untuk Google Play: `build/app/outputs/bundle/release/app-release.aab`.
-
-Naikkan `version` di `pubspec.yaml` (misalnya `1.0.1+2`) sebelum update rilis;
-versionCode harus meningkat di Google Play. Daftarkan Play App Signing jika
-distribusi melalui Play Store. Jangan mengunggah keystore sebagai artifact CI.
-
-**Penting untuk instalasi lama:** APK sebelum Fase 8 memakai key debug. APK dengan
-key rilis baru tidak bisa menimpa aplikasi dengan tanda tangan berbeda. Jangan
-langsung uninstall: data lokal akan hilang. Backup/ekspor dan pastikan sinkron
-berhasil dahulu; CSV saja bukan backup penuh. APK sideload dan APK dari Play juga
-bisa berbeda key jika memakai Play App Signing.
-
-```powershell
-flutter devices
+adb devices
 adb -s ID_PERANGKAT install -r build/app/outputs/flutter-apk/app-release.apk
 ```
 
-AAB tidak dapat diinstal langsung seperti APK. Jika `INSTALL_FAILED_UPDATE_INCOMPATIBLE`,
-jangan memaksa uninstall sebelum memiliki rencana pemulihan data.
-Lihat [panduan signing/build resmi Flutter](https://docs.flutter.dev/deployment/android).
+- **APK:** `build/app/outputs/flutter-apk/app-release.apk` untuk pemasangan langsung.
+- **AAB:** `build/app/outputs/bundle/release/app-release.aab` untuk distribusi Google Play, bukan instalasi langsung.
+- **Debug:** `flutter build apk --debug`, lalu pasang `app-debug.apk` untuk pengembangan.
 
-## Build desktop
+Pembaruan harus memakai application ID dan signing key yang cocok. Jika muncul `INSTALL_FAILED_UPDATE_INCOMPATIBLE`, siapkan ekspor/sinkronisasi dan rencana pemulihan sebelum uninstall; uninstall dapat menghapus data lokal. Naikkan versi/build di `pubspec.yaml` sebelum distribusi pembaruan.
 
-Tutup Ledgy sebelum build Windows supaya linker tidak terkunci (`LNK1104`).
+Skrip `tool/build_configured.ps1 -Target android` juga tersedia untuk build dengan konfigurasi lokal yang divalidasi.
 
-```powershell
-flutter build windows --release --no-tree-shake-icons --dart-define-from-file=supabase/client-config.local.json
-```
+</details>
 
-Untuk distribusi dengan instalasi, jalankan `./tool/package_installer.ps1` setelah
-build. Hasilnya `build/releases/Ledgy-Setup-<versi>-build<build>-x64.exe`;
-bagikan satu berkas installer tersebut. Lihat [panduan installer Windows](docs/WINDOWS_INSTALLER.md).
-Installer belum memiliki sertifikat Authenticode; Windows SmartScreen dapat
-memberi peringatan penerbit tidak dikenal.
+<details>
+<summary><strong>Linux — bundle desktop</strong></summary>
 
-Untuk distribusi portable, kirim **seluruh** folder `build/windows/x64/runner/Release`,
-bukan EXE saja: DLL dan folder `data` diperlukan.
-Untuk membuat ZIP portable lengkap beserta hash: `./tool/package_windows.ps1`.
-Arsip disimpan di `build/releases` dan tidak menimpa arsip versi yang sudah ada.
-Setelah APK/AAB/ZIP selesai, `./tool/release_checksums.ps1` menghasilkan
-`build/releases/SHA256SUMS.txt` untuk memeriksa integritas berkas.
-
-Linux harus dibangun pada Linux (tidak bisa cross-build langsung dari Windows).
-Di Ubuntu 24.04 dengan Flutter 3.47.5 dan JDK tersedia:
+Jalankan pada mesin Linux dengan dependency dari [Mulai dari source](#mulai):
 
 ```bash
-sudo apt-get update
-sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev openjdk-17-jdk
-flutter pub get --enforce-lockfile
 flutter build linux --release --dart-define-from-file=supabase/client-config.local.json
-./build/linux/x64/release/bundle/ledgy
+./build/linux/x64/release/bundle/ledgy_2_0
 ```
 
-Distribusikan seluruh `build/linux/x64/release/bundle`; paket tar.gz menjaga izin
-executable. File `.desktop` contoh disertakan di `data`, namun perlu menyesuaikan
-`Exec` dengan lokasi instalasi dan memasang ikon `ledgy.png` sebagai
-`~/.local/share/icons/hicolor/256x256/apps/com.ledgy.ledgy.png` serta desktop entry
-di `~/.local/share/applications`. Jangan memakai literal path build pada installer.
-Kunci `local_auth` belum mendukung Linux; jangan menjanjikan biometrik/PIN pada Linux.
+Distribusikan seluruh folder `build/linux/x64/release/bundle/` dan pertahankan izin executable. Biometrik tidak didukung pada Linux.
 
-## GitHub Actions
+</details>
 
-Workflow ada di [.github/workflows/ci.yml](.github/workflows/ci.yml). Jadikan
-folder **ledgy** sebagai root repository GitHub (workflow harus berada di
-`REPO_ROOT/.github/workflows`, bukan subfolder). Jika monorepo, pindahkan workflow
-ke root dan atur working directory/path setiap job ke `ledgy`.
+<a id="keamanan"></a>
 
-- Push/PR: analyze, unit/widget test, coverage, build Windows/Linux release,
-  dan compile APK **debug** tanpa key rilis.
-- Actions → **Ledgy CI → Run workflow → release_android=true**: APK dan AAB
-  bertanda tangan, verifikasi signature, SHA-256, dan artifact unduhan.
-- Versi Flutter dan commit action dipin; workflow hanya punya `contents: read`,
-  tidak auto-deploy, dan tidak menggunakan `pull_request_target`.
+## Keamanan dan privasi
 
-Di Settings → Environments buat **android-release**, batasi branch rilis dan
-aktifkan required reviewers bila tersedia. Tambahkan environment secrets:
+| Area | Perilaku saat ini |
+| --- | --- |
+| Kredensial | `.gitignore` mengecualikan konfigurasi lokal, `.env`, signing key, database, backup, dan hasil build. |
+| Password | Password kunci aplikasi disimpan sebagai hash dengan salt; pengaturan mendukung 8–128 karakter. |
+| Biometrik | Diperiksa sebelum aktivasi; Windows Hello dapat menawarkan PIN OS setelah pemeriksaan sensor. |
+| Parser | Aturan, memori koreksi, dan diagnostik parser diproses lokal. |
+| Foto struk | OCR lokal, penghapusan foto sementara, lampiran lokal hanya jika diaktifkan. |
+| Sinkronisasi | Data ledger dikirim ke backend Supabase akun pengguna ketika login/sinkronisasi aktif. |
+| Batas perlindungan | Kunci aplikasi **tidak mengenkripsi database**. SQLCipher dan backup terenkripsi belum diimplementasikan. |
+
+<details>
+<summary><strong>Periksa sebelum commit atau push</strong></summary>
+
+```powershell
+./tool/check_github_safety.ps1
+git diff --cached --stat
+```
+
+Pemeriksaan menandai pola kredensial yang dikenal tanpa mencetak nilai rahasia. Hasil PASS tidak menjamin semua format rahasia terdeteksi; tinjau berkas baru, jangan gunakan `git add -f` untuk memasukkan konfigurasi privat.
+
+`.gitignore` tidak menghapus berkas yang sudah dilacak. Jika rahasia pernah terunggah, cabut/ganti kredensial lalu bersihkan riwayat sesuai [panduan GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository).
+
+[Panduan unggah GitHub](docs/GITHUB_UPLOAD.md) · [Pengaturan keamanan](docs/SETTINGS_SECURITY.md)
+
+</details>
+
+<details>
+<summary><strong>Ekspor, backup, dan data yang hanya lokal</strong></summary>
+
+Ekspor CSV melalui menu Print di **Anggaran**. CSV memuat transaksi, tetapi bukan backup penuh saldo awal aset, anggaran, jadwal, pengaturan, atau sesi login. Excel/PDF mengikuti periode dan filter pada halaman Transaksi.
+
+Target tabungan, memori parser, diagnostik kegagalan, dan lampiran foto bersifat lokal. Sinkronisasi bukan backup point-in-time: penghapusan yang disinkronkan juga dapat mencapai perangkat lain.
+
+Database 2.0 memakai nama `ledgy_2_0` melalui Drift di direktori application-support OS. Untuk salinan desktop, tutup aplikasi lebih dahulu dan simpan database beserta sidecar yang masih diperlukan sebagai satu set di media aman. Lokasi nyata mengikuti OS; database bukan berada dalam folder build. Database Android berada di sandbox aplikasi, dan belum tersedia tombol backup penuh Android.
+
+Format CSV dan batas pemulihan dijelaskan di [implementasi CSV](lib/features/transfer/domain/ledger_csv.dart) dan [catatan keamanan](docs/PHASE7.md).
+
+</details>
+
+[Kembali ke atas ↑](#top)
+
+<a id="pengujian"></a>
+
+## Pengujian dan CI
+
+```powershell
+flutter analyze --no-pub
+flutter test --no-pub
+flutter test --no-pub --coverage
+```
+
+<details>
+<summary><strong>Jalankan pengujian parser dan formulir</strong></summary>
+
+```powershell
+flutter test --no-pub test/domain/draft_validator_test.dart
+flutter test --no-pub test/domain/parser_pipeline_test.dart
+flutter test --no-pub test/domain/parser_corpus_golden_test.dart
+flutter test --no-pub test/domain/receipt_parser_test.dart
+flutter test --no-pub test/draft_confirmation_sheet_test.dart
+dart tool/parser_benchmark.dart
+```
+
+Korpus berisi **120 kalimat sintetis** dan **8 fixture OCR sintetis**. Golden mengukur akurasi per kolom dan total struk. Target regresi nominal ≥90%, total fixture struk ≥80%, dan p95 parser <50 ms di mesin pengujian; hasil ini bukan jaminan OCR foto nyata atau performa semua ponsel.
+
+Pada debug build, buka **Pengaturan → Input cepat → Lab parser** untuk melihat langkah aturan, confidence, warning, dan durasi. **Debug OCR struk** Android mengekspor `OcrLine` ke JSON. Lab/debug OCR tidak tampil pada build rilis.
+
+Opsi **Catat kalimat gagal diurai** bawaan mati. Jika diaktifkan, input teks yang gagal dicatat lokal, dapat diekspor, dan dapat dihapus; suara serta teks OCR tidak masuk log kegagalan tersebut.
+
+[Korpus kalimat](test/fixtures/PHRASES.md) · [Evaluasi parser](docs/QUICK_INPUT_STEP6.md)
+
+</details>
+
+<details>
+<summary><strong>GitHub Actions dan build Android bertanda tangan</strong></summary>
+
+Workflow [Ledgy CI](.github/workflows/ci.yml) berada di root repositori. Push/PR menjalankan analyze, pengujian, coverage, build Windows/Linux, dan APK debug. Lihat hasil run di [GitHub Actions](https://github.com/abiyyufarhan/Ledgy/actions); README tidak menganggap job lulus sebelum run benar-benar selesai.
+
+Untuk build rilis Android, buat environment **`android-release`**, atur branch/reviewer sesuai kebutuhan, lalu simpan secrets:
 
 | Secret | Isi |
 | --- | --- |
-| `LEDGY_KEYSTORE_BASE64` | Base64 dari keystore yang sama, tanpa baris tambahan |
-| `LEDGY_KEY_ALIAS` | `ledgy-upload` |
-| `LEDGY_STORE_PASSWORD` | `storePassword` dari file lokal |
-| `LEDGY_KEY_PASSWORD` | `keyPassword` dari file lokal |
+| `LEDGY_KEYSTORE_BASE64` | Keystore rilis dalam base64. |
+| `LEDGY_KEY_ALIAS` | Alias signing key. |
+| `LEDGY_STORE_PASSWORD` | Password keystore. |
+| `LEDGY_KEY_PASSWORD` | Password key. |
 
-Untuk menyalin base64 langsung ke clipboard, tanpa mencetak di konsol:
+Repository Variables **`SUPABASE_URL`** dan **`SUPABASE_ANON_KEY`** hanya untuk konfigurasi klien publik. Jalankan **Actions → Ledgy CI → Run workflow → release_android=true**. Jangan mengunggah keystore sebagai artifact atau menulis nilainya ke source/log.
 
-```powershell
-[Convert]::ToBase64String([IO.File]::ReadAllBytes((Resolve-Path 'release-private/ledgy-upload.jks'))) | Set-Clipboard
-# Paste ke secret GitHub, lalu kosongkan clipboard.
-Set-Clipboard -Value ''
-```
+</details>
 
-Repository **Variables** (bukan service secrets): `SUPABASE_URL` dan
-`SUPABASE_ANON_KEY` publik. Tanpa keduanya artifact CI berjalan dalam mode lokal.
-Artifact CI hanya menyimpan hasil build/coverage, tidak database atau key.
-CI Linux belum dianggap lulus sebelum job benar-benar dijalankan di GitHub.
+<a id="faq"></a>
 
-## Backup dan pemulihan
+## Pertanyaan umum
 
-**Backup terenkripsi dan SQLCipher belum diimplementasikan**; persetujuan
-dependency keamanan Fase 7 masih diperlukan. Jangan menganggap PIN/biometrik
-mengenkripsi database. Android auto-backup dinonaktifkan untuk menghindari salinan
-keuangan plaintext yang tidak disengaja. Sinkronisasi bukan backup point-in-time:
-penghapusan juga tersinkron.
+<details>
+<summary><strong>Mengapa tombol login tidak bisa ditekan?</strong></summary>
 
-### CSV (transaksi saja)
+Periksa validitas email/password dan konfigurasi cloud. Build tanpa `--dart-define-from-file=supabase/client-config.local.json` berjalan lokal dan tidak mengaktifkan login cloud. Isi konfigurasi publik yang valid, lalu run/build ulang. Konfirmasi email jika diwajibkan backend.
 
-1. Buka **Anggaran → tombol printer/Print → Ekspor CSV**.
-2. Simpan di folder/drive terenkripsi yang Anda kendalikan.
-3. Untuk impor, buat aset yang diperlukan terlebih dahulu, pilih CSV, periksa
-   pratinjau/duplikat/baris invalid, lalu konfirmasi.
+</details>
 
-CSV tidak memuat saldo awal aset, anggaran, jadwal berulang, pengaturan atau sesi
-login. Simpan informasi tersebut terpisah bila mengandalkan ekspor CSV. Jangan
-membuka CSV keuangan di layanan online tanpa memahami risikonya.
+<details>
+<summary><strong>Mengapa Simpan pada input cepat masih nonaktif?</strong></summary>
 
-### Salinan database lokal desktop (penuh, plaintext)
+Jumlah harus lebih dari nol, akun wajib terisi, dan transaksi pemasukan/pengeluaran perlu kategori. Periksa juga tanggal dan tujuan/penerima transfer. Kolom bermasalah memiliki peringatan inline; lengkapi sebelum menyimpan.
 
-Database bernama `ledgy.sqlite`, berada pada application documents directory
-yang dikembalikan `path_provider` (biasanya folder Documents; bisa diarahkan
-Windows/OneDrive). Lokasi mengikuti pengguna/perangkat, bukan folder build.
+</details>
 
-1. Tutup Ledgy sepenuhnya agar SQLite melakukan checkpoint dan melepas lock.
-2. Salin `ledgy.sqlite` ke media terenkripsi. Jika masih ada `-wal`/`-shm`, simpan
-   sebagai satu set; jangan menyalin database yang sedang ditulis. Jangan hapus
-   sidecar untuk "memperbaiki" database.
-3. Saat restore, tutup Ledgy, backup dahulu database saat ini, lalu pulihkan
-   set file konsisten ke lokasi yang sama. Gunakan versi aplikasi yang kompatibel.
-4. Salinan mencakup owner/antrean sinkronisasi: gunakan akun cloud pemilik yang
-   sama. Sesi login OS tidak termasuk; mungkin perlu login kembali.
+<details>
+<summary><strong>Apakah kategori dari prompt berbeda dengan transaksi manual?</strong></summary>
 
-Database Android berada di sandbox aplikasi dan tidak dapat diekspor penuh dari
-APK rilis melalui `adb pull` biasa. Saat ini tidak ada tombol backup penuh Android;
-verifikasi cloud dan ekspor CSV sebelum migrasi/uninstall. Jangan melakukan root
-perangkat hanya untuk backup. Uji pemulihan pada salinan aman sebelum menyatakan
-backup siap dipakai.
+Pemilihnya sama: kategori induk, subkategori, pencarian, ikon berwarna, dan kategori pribadi. Parser hanya mengusulkan pilihan awal; pengguna tetap dapat menggantinya. [Panduan kategori](docs/QUICK_INPUT_CATEGORY_PICKER.md).
 
-## Status rilis dan pemeriksaan sebelum distribusi
+</details>
 
-Lihat [catatan Fase 8](docs/PHASE8.md) untuk hasil build aktual dan keterbatasan.
-Uji pada perangkat nyata: ikon/splash terang/gelap, signup+konfirmasi, sinkron dua
-perangkat, mode offline, biometrik/PIN, izin notifikasi, font besar, dan restore.
-Rilis file tidak otomatis berarti siap dipublikasikan ke store.
+<details>
+<summary><strong>Mengapa mikrofon, kamera, atau biometrik tidak tersedia?</strong></summary>
 
-## Fase 7 — keamanan dan penyempurnaan (sebagian)
+Suara membutuhkan dukungan layanan sistem, izin, dan locale Indonesia. Kamera/OCR struk hanya tersedia di Android. Biometrik membutuhkan hardware dan konfigurasi yang didukung; Linux belum mendukungnya. Gunakan input teks/password ketika opsi perangkat tidak tersedia.
 
-Password Ledgy dan biometrik tersedia di Pengaturan, dengan pemeriksaan dukungan
-perangkat sebelum aktivasi biometrik, tombol sinkron berupa ikon ringkas, dan
-baris pengaturan tanpa blur. Profil penabung dikelola melalui Detail Akun.
-Lihat [pengaturan dan keamanan](docs/SETTINGS_SECURITY.md). Penutup konten
-saat aplikasi kembali dari latar belakang. Error logging telah diperketat,
-area sentuh dan dukungan font besar diperbaiki, dan blur diuji per layar.
-Enkripsi database/backup masih menunggu persetujuan dependency; Android fisik
-belum tersambung untuk pengukuran performa. Lihat [audit Fase 7](docs/PHASE7.md).
+</details>
 
-## Fase 6 — login dan sinkronisasi
+<details>
+<summary><strong>Apakah Ledgy 2.0 mengubah data Ledgy 1.0?</strong></summary>
 
-Login/daftar opsional bergaya glass tersedia melalui **profil → Detail Akun → Daftar / Login**.
-Setelah berhasil masuk, lanjutkan mengisi nama aset dan saldo awal.
-Status sinkron tersedia melalui **Setting**. Tanpa login, aplikasi tetap lokal.
-Detail Akun menyediakan perubahan informasi akun dan **Keluar dari aplikasi**.
-Foto ditampilkan jika metadata akun menyediakan `avatar_url`; selain itu memakai avatar bawaan.
+Instalasi dan database lokal 2.0 terpisah. Jika kedua versi masuk ke akun dan backend Supabase yang sama, perubahan cloud tetap dibagikan, termasuk penghapusan yang disinkronkan. [Rincian migrasi](docs/MIGRASI_KONFIGURASI_1_0.md).
 
-Dropdown Ledgy memakai satu panel glass dengan header, garis pemisah, ikon dan
-tulisan. Menu membuka ke bawah; Escape, klik luar atau tekan header untuk
-menutupnya. Tombol tertutup tidak memakai blur; hanya satu blur pada panel menu
-terbuka, daftar pilihan dibuat secara lazy, dan animasi menghormati pengaturan
-pengurangan gerakan. Foto profil didekode sesuai kepadatan piksel perangkat.
-Sinkronisasi memakai antrean SQLite persisten, timestamp server, soft delete,
-retry offline, debounce perubahan, dan tombol manual. Ikuti
-[panduan Fase 6](supabase/SYNC.md) untuk migrasi tambahan, URL/anon key, callback
-Android, build Windows/Android, serta batasan konflik dan perlindungan akun.
+</details>
 
-## Fase 5 — backend Supabase
+<a id="dokumentasi"></a>
 
-Skema PostgreSQL, RLS, timestamp server, dan index tersedia di
-[supabase/migrations/20261001000000_create_ledgy_backend.sql](supabase/migrations/20261001000000_create_ledgy_backend.sql).
-Ikuti [panduan setup Supabase dan Auth email](supabase/README.md) untuk membuat
-proyek dan menjalankan migrasi. Konfigurasi klien hanya URL dan key publik;
-UI login/sinkronisasi Flutter tersedia mulai Fase 6.
+## Dokumentasi lanjutan dan kontribusi
 
-## Fase 4 — fitur lanjutan lokal
+| Kebutuhan | Panduan |
+| --- | --- |
+| Menjalankan 2.0 dan migrasi | [Menjalankan Ledgy 2.0](docs/MENJALANKAN_2_0.md) · [Konfigurasi dari 1.0](docs/MIGRASI_KONFIGURASI_1_0.md) |
+| Draf dan parser | [Langkah 1](docs/QUICK_INPUT_STEP1.md) · [Langkah 2](docs/QUICK_INPUT_STEP2.md) · [Pipeline](docs/QUICK_INPUT_STEP4.md) |
+| Suara, struk, dan evaluasi | [Suara](docs/QUICK_INPUT_STEP3.md) · [OCR](docs/QUICK_INPUT_STEP5.md) · [Lab/metrik](docs/QUICK_INPUT_STEP6.md) |
+| Kategori dan form | [Cafe / Warkop](docs/QUICK_INPUT_CATEGORIES.md) · [Pemilih kategori](docs/QUICK_INPUT_CATEGORY_PICKER.md) · [Form prompt](docs/QUICK_INPUT_FORM_UI.md) |
+| Backend dan sinkronisasi | [Supabase](supabase/README.md) · [Sync](supabase/SYNC.md) |
+| Keamanan dan distribusi | [Settings](docs/SETTINGS_SECURITY.md) · [Installer Windows](docs/WINDOWS_INSTALLER.md) · [GitHub](docs/GITHUB_UPLOAD.md) |
+| Asal gambar README | [Aset dokumentasi](docs/media/README.md) |
 
-Akses **Anggaran** di antara Transaksi dan Aset pada sidebar/navigasi bawah.
-Pilih **Anggaran Bulanan** atau **Transaksi Berulang** di bagian atas halaman.
-Tombol printer kanan bawah (melebar menjadi **Print** saat hover) membuka ekspor/impor CSV.
-Tab **Analisis** kini memuat seluruh grafik laporan; tidak ada tombol Laporan terpisah.
+Catatan langkah/fase merekam kondisi saat fitur dibuat; gunakan README ini dan source saat ini untuk perilaku terbaru.
 
-- **Anggaran bulanan:** pilih kategori induk dan batas rupiah. Pengeluaran seluruh
-  aset dan subkategori dijumlahkan untuk bulan yang dipilih. Tekan **Aktifkan
-  notifikasi** dan izinkan notifikasi di Android. Peringatan 80% dan 100% masing-masing
-  dikirim sekali per anggaran/bulan; jika langsung melewati 100%, hanya peringatan
-  100% yang dikirim. Izin yang ditolak tidak menghabiskan penanda peringatan.
-  Anggaran tidak otomatis disalin ke bulan berikutnya.
-- **Transaksi berulang:** pemasukan/pengeluaran harian, mingguan, atau bulanan dengan
-  interval, aset, kategori, nominal, catatan, dan tanggal/jam mulai. Jadwal terlewat
-  dibuat saat aplikasi dibuka/aktif kembali; Android juga mendaftarkan Workmanager
-  periodik satu jam tanpa syarat internet. Sistem dapat menunda pekerjaan karena
-  penghematan baterai atau force-stop. Desktop hanya memproses saat aplikasi aktif.
-  Jadwal dapat dijeda, dilanjutkan, atau dihapus; transaksi yang sudah dibuat tetap ada.
-  Tanggal 31 tetap kembali ke 31 setelah bulan pendek. Maksimal 500 tanggal per
-  aturan diproses per putaran untuk membatasi beban; sisanya di putaran berikutnya.
-  Aset yang diarsipkan tidak menghasilkan transaksi baru.
-- **Analisis:** enam bulan sampai bulan pilihan, grafik batang pemasukan/pengeluaran,
-  cincin pengeluaran per kategori, dan cashflow bulanan. Transfer antar-aset tidak
-  dihitung sebagai pendapatan/beban. Semua bulan memakai zona waktu lokal.
-- **CSV:** ekspor seluruh transaksi aktif; impor dengan pratinjau dan konfirmasi.
-  Duplikat diperiksa melalui ID atau kombinasi jenis, nominal, aset, tujuan,
-  kategori, catatan, dan detik waktu, termasuk transaksi terhapus. Duplikat dalam
-  berkas yang sama juga dilewati. Baris tidak valid dilewati secara eksplisit pada
-  konfirmasi. Aset harus sudah dibuat; pencocokan melalui ID atau nama unik.
-  Kategori baru hanya disimpan saat impor dikonfirmasi. Maksimal 10 MB/10.000 baris.
-  CSV berisi data keuangan pribadi; simpan di lokasi aman. CSV bukan backup saldo
-  awal, anggaran, atau jadwal berulang.
+Untuk perubahan kode, buat branch, gunakan akun/data uji, jalankan pengujian yang sesuai, dan sertakan screenshot bila UI berubah. Hindari data pribadi dalam fixture, issue, screenshot, dan pull request. Repository ini belum memiliki file lisensi proyek; font Noto Sans memiliki [OFL](assets/fonts/OFL.txt) tersendiri.
 
-Format CSV UTF-8 (BOM diperbolehkan), pemisah koma atau titik-koma, nominal rupiah
-bulat tanpa pemisah ribuan, jenis `income`, `expense`, atau `transfer`, tanggal
-ISO-8601 dengan zona waktu (`2026-10-01T15:30:00Z` = 22.30 WIB).
-Kolom ekspor:
-
-```text
-id,type,amount,account_id,account_name,to_account_id,to_account_name,category_id,category_name,note,occurred_at
-```
-
-Impor memerlukan `type`, `amount`, `occurred_at`, dan ID/nama aset;
-pengeluaran/pemasukan memerlukan ID/nama kategori. Transfer memerlukan ID/nama
-aset tujuan yang berbeda. Nama subkategori ditulis `Makan & Minum • Cafe / Warkop`.
-Teks ekspor dilindungi dari formula spreadsheet, kutip/koma/baris baru di-escape.
-Impor memvalidasi ulang di dalam transaksi database saat konfirmasi agar pratinjau
-yang sudah kedaluwarsa tidak membuat duplikat. Tabel penanda lokal dibuat tanpa
-menimpa data transaksi yang sudah ada.
-
-Validasi dan build dari folder yang berisi `pubspec.yaml`:
-
-```powershell
-flutter analyze
-flutter test
-flutter build windows --release --no-tree-shake-icons
-flutter build apk --release
-```
-
-Build Windows menyertakan font ikon lengkap melalui `--no-tree-shake-icons` agar
-ikon baru tetap tersedia pada build berikutnya. Setelah build, jalankan
-`node tool/verify_windows_icons.mjs` untuk memeriksa semua ikon Material yang
-digunakan aplikasi terhadap font di bundle Windows. CI menjalankan pemeriksaan ini.
-
-Notifikasi Windows menggunakan identitas aplikasi `com.ledgy.ledgy`; pastikan
-notifikasi Ledgy diizinkan dalam pengaturan Windows. Pengiriman toast dan jadwal
-Android perlu uji langsung pada perangkat (termasuk pengaturan baterai).
-
+<p align="center"><strong>Ledgy — Catat. Pahami. Kendalikan.</strong><br><a href="#top">Kembali ke atas ↑</a></p>
